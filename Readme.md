@@ -17,10 +17,11 @@
 </p> 
 
 
-<p align="center">
-  <img src="Videos/Grabación de pantalla 2026-04-21 202455.mp4" width="90%">
-</p> 
 
+  <video src="Videos/Grabación de pantalla 2026-04-21 202455.mp4" width="100%" controls>
+    Tu navegador no soporta el elemento de video.
+  </video>
+</p>
     
 <p align="center">
   <img src="Foto/Captura de pantalla 2026-04-21 170520.png" width="90%">
