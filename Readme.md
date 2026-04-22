@@ -18,7 +18,7 @@
 
 
 <p align="center">
-  <img src="Videos/Grabación de pantalla 2026-04-21 202455.mp4
+  <img src="Videos/Grabación de pantalla 2026-04-21 202455.mp4" width="90%">
 </p> 
 
     
