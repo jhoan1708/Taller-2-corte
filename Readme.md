@@ -157,12 +157,55 @@ https://github.com/user-attachments/assets/9e8b98cf-56ec-4555-a7a8-f1c1b37355e3
 </p> 
 
 # Introduccion
+En este laboratorio presentamos el desarrollo de un sistema de clasificación de objetos en tiempo real utilizando YOLO (You Only Look Once), uno de los modelos más conocidos y eficientes en el área de visión por computador. Nuestro propósito es mostrar, de manera práctica, cómo es posible aplicar técnicas de aprendizaje profundo para detectar y clasificar múltiples elementos dentro de una escena capturada por una cámara.
+A lo largo de este trabajo implementamos un modelo capaz de identificar diferentes elementos de juguete, lo que nos permite simular un entorno controlado y enfocado en el aprendizaje. El sistema fue diseñado para realizar detecciones en tiempo real, mostrando en pantalla las cajas delimitadoras (bounding boxes) junto con el nivel de confianza asociado a cada predicción realizada por el modelo.
+Los objetos que el sistema es capaz de clasificar son:
 
-# creacion de la base de datos (Roboflow)
+* Motocicletas de juguete
+* Carros de juguete
+* Ciclas de juguete
+* Buses de juguete
+* Peatones de juguete
 
-# Creacion del archivo .pt
+Durante la ejecución, el modelo YOLO analiza cada fotograma de video y determina la presencia de uno o varios de estos elementos, lo que nos permite evidenciar el funcionamiento del proceso de detección y clasificación de forma visual e interactiva.
+Finalmente, documentamos todo el proceso en un repositorio de GitHub, donde describimos la estructura del proyecto, el funcionamiento del modelo y la lógica empleada para llevar a cabo la clasificación en tiempo real. De esta manera, no solo presentamos los resultados obtenidos, sino también el proceso completo de desarrollo, facilitando la comprensión y replicabilidad del laboratorio.
 
-# Creacion codigo para deteccion de objetos (yolo)
+## Tecnologías utilizadas
+- YOLO
+- Roboflow
+- Python
+- OpenCV
+- GitHub
+
+# Creación de la base de datos (Roboflow)
+Para el desarrollo de este laboratorio, comenzamos con la creación de la base de datos necesaria para el entrenamiento del modelo YOLO. Este proceso se llevó a cabo utilizando la plataforma Roboflow, la cual facilita la gestión, anotación y preparación de conjuntos de datos orientados a proyectos de visión por computador.
+Inicialmente, recopilamos un conjunto de imágenes que contienen los objetos definidos para el laboratorio, correspondientes a elementos de juguete. Estas imágenes fueron seleccionadas procurando incluir diferentes ángulos, tamaños y fondos, con el fin de mejorar la capacidad del modelo para generalizar durante el proceso de detección en tiempo real.
+
+Una vez cargadas las imágenes en Roboflow, realizamos el proceso de etiquetado manual, asignando una clase a cada objeto presente en las imágenes.
+
+<img width="1915" height="835" alt="image" src="https://github.com/user-attachments/assets/0bd3217d-d82a-4a9b-9f04-820687633069" />
+
+
+Cada objeto fue delimitado mediante cajas delimitadoras (bounding boxes), asegurando que estas encerraran correctamente el elemento correspondiente para garantizar una correcta interpretación por parte del modelo durante el entrenamiento.
+
+<img width="1772" height="813" alt="image" src="https://github.com/user-attachments/assets/c223ca69-2f5b-4822-bb45-ee91cd85d026" />
+
+
+Posteriormente, utilizamos las herramientas de Roboflow para realizar la división del conjunto de datos en tres subconjuntos: entrenamiento, validación y prueba. Esta separación permite evaluar el rendimiento del modelo y verificar su capacidad de detección sobre imágenes no vistas durante el entrenamiento.
+
+<img width="309" height="522" alt="image" src="https://github.com/user-attachments/assets/cc92f680-9387-4ea9-a504-f501983364e9" />
+
+Finalmente, la base de datos fue exportada en el formato compatible con YOLO, lo que permitió su utilización directa en la etapa de entrenamiento del modelo. Todo este proceso queda documentado en este repositorio, junto con las evidencias visuales correspondientes, mostrando así cada una de las etapas realizadas en la creación del dataset.
+
+# Entrenamiento del modelo y generación del archivo .pt
+(Descripción del entrenamiento del modelo YOLO y de cómo se obtuvo el archivo de pesos)
+
+# Implementación del código para la detección de objetos en tiempo real (YOLO)
+(Explicación del código, cámara, inferencia y visualización de resultados)
+
+# Resultados obtenidos
+(Qué logra detectar, ejemplo de ejecución, confianza, etc.)
+
 
 
 
