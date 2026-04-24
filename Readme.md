@@ -189,6 +189,7 @@ while True:
     # iou=0.3: Esto permite que detecte muchos objetos aunque estén pegados o amontonados.
     # augment=True: Este comando hace que la IA analice la imagen varias veces (girada,
     # con más luz, etc.) para encontrar objetos en cualquier posición.
+    
     results = model(frame, stream=True, conf=0.20, iou=0.3, augment=True, verbose=False)
  
     for r in results:
