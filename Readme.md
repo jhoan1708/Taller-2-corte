@@ -9,7 +9,7 @@
   <img src="Foto/Captura de pantalla 2026-04-21 170505.png" width="90%">
 </p> 
 
-
+# 1. Instrumento musical electrónico
 
 # Desarrollo
 
@@ -155,6 +155,8 @@ https://github.com/user-attachments/assets/9e8b98cf-56ec-4555-a7a8-f1c1b37355e3
 <p align="center">
   <img src="Foto/Captura de pantalla 2026-04-21 170520.png" width="90%">
 </p> 
+
+# 2. Clasificación de Objetos en Tiempo Real usando YOLO
 
 # Introduccion
 En este laboratorio presentamos el desarrollo de un sistema de clasificación de objetos en tiempo real utilizando YOLO (You Only Look Once), uno de los modelos más conocidos y eficientes en el área de visión por computador. Nuestro propósito es mostrar, de manera práctica, cómo es posible aplicar técnicas de aprendizaje profundo para detectar y clasificar múltiples elementos dentro de una escena capturada por una cámara.
@@ -476,4 +478,4 @@ cv2.destroyAllWindows()
   <img src="Foto/Captura de pantalla 2026-04-21 170531.png" width="90%">
 </p> 
 
-
+# 3. Paisaje por medio de figuras de lissajaus
