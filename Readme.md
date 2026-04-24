@@ -201,6 +201,9 @@ Finalmente, la base de datos fue exportada en el formato compatible con YOLO, lo
 Para el entrenamiento del modelo de detección de objetos utilizamos Google Colab, ya que esta plataforma nos permite acceder a recursos de hardware acelerado (GPU) sin necesidad de una configuración local avanzada. Antes de ejecutar el código, fue necesario cambiar el tipo de entorno de ejecución a GPU, lo cual optimiza significativamente el tiempo de entrenamiento del modelo YOLO.
 A continuación, se describe el script utilizado, organizado por segmentos, explicando la función de cada uno dentro del proceso de entrenamiento y generación del archivo final .pt.
 
+<img width="1890" height="820" alt="image" src="https://github.com/user-attachments/assets/8787e03a-fa5f-42c8-b3bd-379e63c94ff6" />
+
+
 ```
 # ==========================================================
 # SCRIPT COMPLETO PARA DETECTOR DE JUGUETES (GOOGLE COLAB)
@@ -321,7 +324,115 @@ except:
 ```
 
 # Implementación del código para la detección de objetos en tiempo real (YOLO)
-(Explicación del código, cámara, inferencia y visualización de resultados)
+En esta etapa del laboratorio implementamos el código necesario para realizar la detección y clasificación de objetos en tiempo real utilizando el modelo YOLO previamente entrenado. Para ello, cargamos el archivo de pesos .pt generado en Google Colab y lo integramos con una cámara web mediante la librería OpenCV.
+El objetivo principal de esta implementación es capturar video en tiempo real, analizar cada fotograma con el modelo YOLO y mostrar en pantalla los objetos detectados mediante cajas delimitadoras, junto con el nombre de la clase y el nivel de confianza. De esta manera, se valida el funcionamiento práctico del modelo entrenado y su capacidad para reconocer los diferentes elementos definidos en el laboratorio, incluso cuando estos se muestran desde la pantalla de un celular o en distintas posiciones.
+
+```
+# ==========================================================
+# IMPLEMENTACIÓN DEL CÓDIGO PARA LA DETECCIÓN DE OBJETOS
+# EN TIEMPO REAL UTILIZANDO YOLO
+# ==========================================================
+# Este script permite utilizar el modelo previamente entrenado
+# (archivo .pt) para detectar y clasificar objetos en tiempo real
+# usando la cámara del computador.
+# ==========================================================
+
+
+# ==========================================================
+# 1. IMPORTACIÓN DE LIBRERÍAS
+# ==========================================================
+# Importamos OpenCV para el manejo de la cámara y visualización
+# Importamos YOLO desde Ultralytics para cargar el modelo entrenado
+
+import cv2
+from ultralytics import YOLO
+
+
+# ==========================================================
+# 2. CARGA DEL MODELO ENTRENADO (.PT)
+# ==========================================================
+# En este paso cargamos el archivo best.pt generado durante
+# la etapa de entrenamiento en Google Colab.
+# Este archivo contiene los pesos del modelo entrenado para
+# reconocer los juguetes definidos en el dataset.
+
+model = YOLO(r"C:\Users\PIPE\Desktop\best.pt")
+
+
+# ==========================================================
+# 3. CONFIGURACIÓN DE LA CÁMARA
+# ==========================================================
+# Inicializamos la cámara web del computador.
+# El valor 0 corresponde a la cámara principal del sistema.
+
+cap = cv2.VideoCapture(0)
+
+# Se fuerza una resolución estándar para mejorar la detección
+# y evitar zonas con mala interpretación de la imagen.
+
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+
+# Verificamos que la cámara se haya abierto correctamente
+if not cap.isOpened():
+    print("Error: No se pudo abrir la cámara.")
+    exit()
+
+print("Detección activa. Apunta a tus juguetes o a la pantalla de tu celular.")
+
+
+# ==========================================================
+# 4. BUCLE PRINCIPAL DE DETECCIÓN EN TIEMPO REAL
+# ==========================================================
+# Este ciclo captura continuamente los fotogramas de la cámara
+# y los envía al modelo YOLO para su análisis.
+
+while True:
+    ret, frame = cap.read()
+
+    # Si no se logra capturar el fotograma, se finaliza el programa
+    if not ret:
+        break
+
+
+    # ======================================================
+    # CONFIGURACIÓN DE PARÁMETROS DE DETECCIÓN
+    # ======================================================
+    # conf = 0.20:
+    #   Reduce el umbral de confianza para permitir detecciones
+    #   más sensibles, especialmente cuando los objetos se
+    #   muestran desde la pantalla de un celular.
+    #
+    # iou = 0.3:
+    #   Permite detectar varios objetos aunque estén cercanos
+    #   o ligeramente superpuestos.
+    #
+    # augment = True:
+    #   Aplica aumentos durante la inferencia, analizando la
+    #   imagen en diferentes variaciones para mejorar resultados.
+    #
+    # stream = True:
+    #   Permite procesar los fotogramas de forma continua.
+    #
+    # verbose = False:
+    #   Evita mostrar mensajes innecesarios en consola.
+
+    results = model(
+        frame,
+        stream=True,
+        conf=0.20,
+        iou=0.3,
+        augment=True,
+        verbose=False
+    )
+
+
+    # ======================================================
+    # 5. VISUALIZACIÓN DE RESULTADOS
+    # ======================================================
+    # Recorremos los resultados obtenidos y dibujamos las
+```
+
 
 # Resultados obtenidos
 (Qué logra detectar, ejemplo de ejecución, confianza, etc.)
