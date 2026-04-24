@@ -198,7 +198,127 @@ Posteriormente, utilizamos las herramientas de Roboflow para realizar la divisi�
 Finalmente, la base de datos fue exportada en el formato compatible con YOLO, lo que permitió su utilización directa en la etapa de entrenamiento del modelo. Todo este proceso queda documentado en este repositorio, junto con las evidencias visuales correspondientes, mostrando así cada una de las etapas realizadas en la creación del dataset.
 
 # Entrenamiento del modelo y generación del archivo .pt
-(Descripción del entrenamiento del modelo YOLO y de cómo se obtuvo el archivo de pesos)
+Para el entrenamiento del modelo de detección de objetos utilizamos Google Colab, ya que esta plataforma nos permite acceder a recursos de hardware acelerado (GPU) sin necesidad de una configuración local avanzada. Antes de ejecutar el código, fue necesario cambiar el tipo de entorno de ejecución a GPU, lo cual optimiza significativamente el tiempo de entrenamiento del modelo YOLO.
+A continuación, se describe el script utilizado, organizado por segmentos, explicando la función de cada uno dentro del proceso de entrenamiento y generación del archivo final .pt.
+
+```
+# ==========================================================
+# SCRIPT COMPLETO PARA DETECTOR DE JUGUETES (GOOGLE COLAB)
+# ==========================================================
+# Este script tiene como objetivo entrenar un modelo YOLO
+# para la detección de objetos de juguete y generar el
+# archivo final de pesos (.pt) que será usado posteriormente
+# para la detección en tiempo real.
+# ==========================================================
+
+
+# ==========================================================
+# 1. INSTALACIÓN E IMPORTACIÓN DE LIBRERÍAS
+# ==========================================================
+# En este primer paso instalamos las librerías necesarias:
+# - ultralytics: contiene la implementación del modelo YOLO
+# - roboflow: nos permite descargar automáticamente el dataset
+# desde la plataforma Roboflow
+
+!pip install ultralytics roboflow
+
+# Importamos librerías necesarias para ejecutar el entrenamiento
+import os                          # Manejo de rutas y archivos del sistema
+from roboflow import Roboflow      # Conexión y descarga de datasets desde Roboflow
+from ultralytics import YOLO       # Clase principal para usar modelos YOLO
+
+
+# ==========================================================
+# 2. DESCARGA DEL DATASET DESDE ROBOFLOW
+# ==========================================================
+# En este segmento nos conectamos a Roboflow utilizando
+# una API Key, accedemos al workspace y descargamos la
+# versión del dataset previamente creado y etiquetado.
+
+try:
+    # Inicializamos la conexión con Roboflow usando la API Key
+    rf = Roboflow(api_key="YTZ1hI9Jzu23WFr9DZkO")
+
+    # Accedemos al workspace donde está almacenado el proyecto
+    project = rf.workspace("andress-workspace-s8nj4").project("juguetes_detect")
+
+    # Seleccionamos la versión del dataset
+    version = project.version(1)
+
+    # Descargamos el dataset en formato compatible con YOLO
+    dataset = version.download("yolov11")
+
+    # Mensaje de confirmación si la descarga fue exitosa
+    print("✅ Dataset descargado con éxito.")
+
+except Exception as e:
+    # En caso de error, se muestra el mensaje correspondiente
+    print(f"❌ Error al descargar de Roboflow: {e}")
+
+
+# ==========================================================
+# 3. CONFIGURACIÓN DEL MODELO YOLO Y ENTRENAMIENTO
+# ==========================================================
+# En este paso cargamos un modelo base de YOLO
+# Utilizamos la versión YOLO Nano (yolo11n.pt),
+# ya que es ligera y adecuada para entrenamientos académicos
+# y pruebas en tiempo real.
+
+model = YOLO('yolo11n.pt')
+
+
+# Antes de iniciar el entrenamiento, mostramos un mensaje informativo
+print("🚀 Iniciando entrenamiento... esto puede tardar unos minutos.")
+
+
+# Iniciamos el entrenamiento del modelo
+# Parámetros utilizados:
+# - data: ruta al archivo data.yaml del dataset descargado
+# - epochs: número de veces que el modelo analizará el dataset completo
+# - imgsz: tamaño de las imágenes durante el entrenamiento
+# - plots: genera gráficas automáticas del proceso de entrenamiento
+
+results = model.train(
+    data=os.path.join(dataset.location, "data.yaml"),
+    epochs=50,
+    imgsz=640,
+    plots=True
+)
+
+
+# ==========================================================
+# 4. GENERACIÓN Y UBICACIÓN DEL ARCHIVO FINAL .PT
+# ==========================================================
+# Al finalizar el entrenamiento, YOLO guarda automáticamente
+# los pesos del mejor modelo entrenado en un archivo llamado:
+# best.pt
+# Este archivo contiene el "aprendizaje" del modelo y será
+# utilizado posteriormente para la detección de objetos.
+
+print("\n" + "="*50)
+print("¡ENTRENAMIENTO FINALIZADO!")
+print("El archivo del modelo entrenado se encuentra en:")
+print("/content/runs/detect/train/weights/best.pt")
+print("="*50)
+
+
+# ==========================================================
+# 5. DESCARGA AUTOMÁTICA DEL ARCHIVO .PT (OPCIONAL)
+# ==========================================================
+# Este segmento permite descargar automáticamente el archivo
+# best.pt desde Google Colab al computador local del usuario,
+# facilitando su uso en otros entornos o proyectos.
+
+from google.colab import files
+
+try:
+    # Descarga del archivo de pesos entrenado
+    files.download('/content/runs/detect/train/weights/best.pt')
+    print("📥 Descargando el archivo 'best.pt' a tu computadora...")
+except:
+    # Mensaje en caso de que la descarga automática falle
+    print("No se pudo iniciar la descarga automática, revisa manualmente la carpeta 'runs'.")
+```
 
 # Implementación del código para la detección de objetos en tiempo real (YOLO)
 (Explicación del código, cámara, inferencia y visualización de resultados)
