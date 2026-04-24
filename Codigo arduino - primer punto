@@ -47,6 +47,7 @@ Código del Piano Digital – Arduino Uno
 Nota importante:
 El circuito utiliza resistencias pull-down externas en los pulsadores, tal como en el laboratorio original con PIC.
 
+```
 // ==========================================================
 // PIANO DIGITAL – ADAPTACIÓN DE PIC16F887 A ARDUINO UNO
 // ==========================================================
@@ -142,7 +143,7 @@ void loop() {
     digitalWrite(ledPin, LOW);
   }
 }
-``
+```
 
 ✅ Conclusión de la adaptación
 La implementación del laboratorio en Arduino Uno permite
