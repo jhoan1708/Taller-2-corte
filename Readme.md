@@ -460,59 +460,15 @@ cv2.destroyAllWindows()
 
 
 # Resultados obtenidos
-(Qué logra detectar, ejemplo de ejecución, confianza, etc.)
+
+<img width="1864" height="1019" alt="image" src="https://github.com/user-attachments/assets/64ddbd2b-ab8b-4c91-bccb-a5ae89a1672e" />
+
+<img width="1864" height="1019" alt="image" src="https://github.com/user-attachments/assets/197a77d0-f646-4931-b2af-c38c527efe3d" />
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/76cbca39-fa52-4fbe-891f-6e1fd4ab6cf2" />
 
 
 
-
-```
-import cv2
-from ultralytics import YOLO
- 
-# 1. CARGA DEL MODELO
-model = YOLO(r"C:\Users\PIPE\Desktop\best.pt")
- 
-# 2. CONFIGURACIÓN DE LA CÁMARA
-cap = cv2.VideoCapture(0)
- 
-# Forzamos una resolución estándar para que no haya "puntos ciegos"
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
- 
-if not cap.isOpened():
-    print("Error: No se pudo abrir la cámara.")
-    exit()
- 
-print("Detección TOTAL activa. Apunta a tus juguetes o a la pantalla de tu celular.")
- 
-while True:
-    ret, frame = cap.read()
-    if not ret:
-        break
- 
-    # --- EL SECRETO PARA DETECTAR EN CUALQUIER POSICIÓN Y CELULARES ---
-    # conf=0.20: Bajamos mucho la confianza. Las fotos en celulares se ven distintas a los
-    # objetos reales, por eso necesitamos que la IA sea más "sensible".
-    # iou=0.3: Esto permite que detecte muchos objetos aunque estén pegados o amontonados.
-    # augment=True: Este comando hace que la IA analice la imagen varias veces (girada,
-    # con más luz, etc.) para encontrar objetos en cualquier posición.
-    
-    results = model(frame, stream=True, conf=0.20, iou=0.3, augment=True, verbose=False)
- 
-    for r in results:
-        # Dibujamos los cuadros
-        annotated_frame = r.plot()
- 
-        # 4. MOSTRAR EN PANTALLA
-        cv2.imshow('Detector Universal - Pipe', annotated_frame)
- 
-    # Presiona 'q' para cerrar
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
- 
-cap.release()
-cv2.destroyAllWindows()
-```
 
 
 
