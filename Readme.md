@@ -156,6 +156,14 @@ https://github.com/user-attachments/assets/9e8b98cf-56ec-4555-a7a8-f1c1b37355e3
   <img src="Foto/Captura de pantalla 2026-04-21 170520.png" width="90%">
 </p> 
 
+# Introduccion
+
+# creacion de la base de datos (Roboflow)
+
+# Creacion del archivo .pt
+
+# Creacion codigo para deteccion de objetos (yolo)
+
 
 
 ```
