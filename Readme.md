@@ -158,7 +158,7 @@ https://github.com/user-attachments/assets/9e8b98cf-56ec-4555-a7a8-f1c1b37355e3
 
 
 
-``
+```
 import cv2
 from ultralytics import YOLO
  
@@ -204,7 +204,7 @@ while True:
  
 cap.release()
 cv2.destroyAllWindows()
-``
+```
 
 
 
