@@ -1,63 +1,81 @@
-1
-
-🎹 Laboratorio de Instrumento Musical Electrónico
-PIC16F887 / Arduino Uno (Respaldo)
-
-📌 Adaptación del laboratorio a Arduino Uno
-Con el objetivo de disponer de un respaldo funcional ante una posible falla del microcontrolador PIC16F887, se realizó una adaptación completa del laboratorio para su ejecución en Arduino Uno.
-Esta versión conserva la lógica del piano digital, la interacción mediante pulsadores y la generación de sonido, aprovechando las abstracciones de hardware que ofrece Arduino para garantizar estabilidad y facilidad de implementación.
-
-🔄 Equivalencias de hardware (PIC → Arduino)
-
-PIC16F887                      Arduino Uno
-------------------------------------------------
-RB0 – RB6   (Pulsadores)  →   D2 – D8
-RC2         (Speaker)     →   D9
-RC1         (LED)         →   D13 (LED integrado)
-TRISx       (Config E/S)  →   pinMode()
-PWM manual  (Delays)      →   tone()
+LABORATORIO DE INSTRUMENTO MUSICAL ELECTRÓNICO
+RESPALDO DE IMPLEMENTACIÓN CON ARDUINO UNO
 
 
-🎯 Funcionalidades conservadas
-
-- Piano digital con 7 notas musicales
-- Pulsadores como teclas del piano
-- Generación de sonido en tiempo real
-- Indicador visual mediante LED
-- Sonido activo mientras la tecla permanezca presionada
-
-🆕 Diferencias técnicas entre PIC y Arduino
-
-PIC16F887
-- Programación de bajo nivel
-- Configuración manual de registros
-- PWM generado por software
-- Uso de oscilador externo
-- Mayor complejidad de depuración
-
-Arduino Uno
-- Programación de alto nivel
-- Funciones abstraídas (pinMode, tone)
-- PWM automático
-- Oscilador interno
-- Mayor facilidad de mantenimiento
-
-Código del Piano Digital – Arduino Uno
-
-Nota importante:
-El circuito utiliza resistencias pull-down externas en los pulsadores, tal como en el laboratorio original con PIC.
-
-```
-// ==========================================================
-// PIANO DIGITAL – ADAPTACIÓN DE PIC16F887 A ARDUINO UNO
-// ==========================================================
-// Este programa implementa un piano digital utilizando
-// pulsadores y un speaker, replicando el funcionamiento
-// del laboratorio original desarrollado con PIC.
-// ==========================================================
+DESCRIPCIÓN GENERAL
+| Campo                 | Descripción
+|----------------------|----------------------------------------------------
+| Laboratorio          | Instrumento musical electrónico (Piano)
+| Microcontrolador     | PIC16F887
+| Respaldo             | Arduino Uno
+| Objetivo             | Mantener el funcionamiento del piano digital
 
 
-// =================== DEFINICIÓN DE PINES ==================
+JUSTIFICACIÓN DE LA ADAPTACIÓN
+| Motivo        | Explicación
+|--------------|----------------------------------------------------
+| Respaldo     | Prevenir pérdida del laboratorio por daño del PIC
+| Facilidad    | Arduino permite programación de alto nivel
+| Seguridad    | Reduce riesgos académicos
+| Compatibilidad | Mantiene lógica del laboratorio original
+
+
+EQUIVALENCIAS DE CONEXIÓN (PIC → ARDUINO)
+| Función              | PIC16F887     | Arduino Uno
+|---------------------|---------------|---------------
+| Teclas del piano     | RB0 – RB6     | D2 – D8
+| Speaker              | RC2           | D9
+| LED indicador        | RC1           | D13
+| Configuración E/S    | TRISx         | pinMode()
+| Generación de sonido | Delays        | tone()
+
+
+FUNCIONALIDADES IMPLEMENTADAS
+| Nº | Funcionalidad
+|----|-----------------------------------------------
+| 1  | Piano digital de 7 notas
+| 2  | Pulsadores como teclas
+| 3  | Sonido en tiempo real
+| 4  | Indicador visual LED
+| 5  | Sonido activo mientras se presiona la tecla
+
+
+NOTAS MUSICALES
+| Nota | Frecuencia (Hz)
+|------|---------------
+| DO   | 262
+| RE   | 294
+| MI   | 330
+| FA   | 349
+| SOL  | 392
+| LA   | 440
+| SI   | 494
+
+
+DIFERENCIAS TÉCNICAS
+| PIC16F887                    | Arduino Uno
+|------------------------------|----------------------------
+| Bajo nivel                   | Alto nivel
+| Registros manuales           | Funciones abstraídas
+| PWM manual                   | PWM automático
+| Oscilador externo            | Oscilador interno
+| Depuración compleja          | Depuración sencilla
+
+
+INFORMACIÓN DEL CÓDIGO DE RESPALDO
+| Campo       | Detalle
+|-------------|--------------------------------------------
+| Lenguaje    | C / C++ (Arduino)
+| Pulsadores  | Resistencias pull-down externas
+| Speaker     | Conectado a pin digital
+| Plataforma  | Arduino Uno
+
+
+CÓDIGO DE RESPALDO – ARDUINO UNO
+
+------------------------------------------------------------
+PIANO DIGITAL – ADAPTACIÓN DEL LABORATORIO
+------------------------------------------------------------
 
 const int teclaDO  = 2;
 const int teclaRE  = 3;
@@ -70,9 +88,6 @@ const int teclaSI  = 8;
 const int speakerPin = 9;
 const int ledPin = 13;
 
-
-// =================== FRECUENCIAS (Hz) ====================
-
 const int freqDO  = 262;
 const int freqRE  = 294;
 const int freqMI  = 330;
@@ -81,77 +96,60 @@ const int freqSOL = 392;
 const int freqLA  = 440;
 const int freqSI  = 494;
 
-
-// =================== CONFIGURACIÓN ========================
-
 void setup() {
-
-  pinMode(teclaDO,  INPUT);
-  pinMode(teclaRE,  INPUT);
-  pinMode(teclaMI,  INPUT);
-  pinMode(teclaFA,  INPUT);
+  pinMode(teclaDO, INPUT);
+  pinMode(teclaRE, INPUT);
+  pinMode(teclaMI, INPUT);
+  pinMode(teclaFA, INPUT);
   pinMode(teclaSOL, INPUT);
-  pinMode(teclaLA,  INPUT);
-  pinMode(teclaSI,  INPUT);
+  pinMode(teclaLA, INPUT);
+  pinMode(teclaSI, INPUT);
 
   pinMode(speakerPin, OUTPUT);
   pinMode(ledPin, OUTPUT);
 }
 
-
-// =================== BUCLE PRINCIPAL ======================
-
 void loop() {
 
-  if (digitalRead(teclaDO) == HIGH) {
+  if (digitalRead(teclaDO)) {
     digitalWrite(ledPin, HIGH);
     tone(speakerPin, freqDO);
   }
-
-  else if (digitalRead(teclaRE) == HIGH) {
+  else if (digitalRead(teclaRE)) {
     digitalWrite(ledPin, HIGH);
     tone(speakerPin, freqRE);
   }
-
-  else if (digitalRead(teclaMI) == HIGH) {
+  else if (digitalRead(teclaMI)) {
     digitalWrite(ledPin, HIGH);
     tone(speakerPin, freqMI);
   }
-
-  else if (digitalRead(teclaFA) == HIGH) {
+  else if (digitalRead(teclaFA)) {
     digitalWrite(ledPin, HIGH);
     tone(speakerPin, freqFA);
   }
-
-  else if (digitalRead(teclaSOL) == HIGH) {
+  else if (digitalRead(teclaSOL)) {
     digitalWrite(ledPin, HIGH);
     tone(speakerPin, freqSOL);
   }
-
-  else if (digitalRead(teclaLA) == HIGH) {
+  else if (digitalRead(teclaLA)) {
     digitalWrite(ledPin, HIGH);
     tone(speakerPin, freqLA);
   }
-
-  else if (digitalRead(teclaSI) == HIGH) {
+  else if (digitalRead(teclaSI)) {
     digitalWrite(ledPin, HIGH);
     tone(speakerPin, freqSI);
   }
-
   else {
     noTone(speakerPin);
     digitalWrite(ledPin, LOW);
   }
 }
-```
-
-✅ Conclusión de la adaptación
-La implementación del laboratorio en Arduino Uno permite
-contar con una alternativa estable y funcional al uso del
-PIC16F887, manteniendo los objetivos académicos del proyecto.
-
-Esta versión facilita pruebas, mantenimiento y futuras
-extensiones, funcionando como un plan de contingencia
-ante posibles fallos del microcontrolador PIC.
 
 
+CONCLUSIÓN
+| Resultado     | Descripción
+|---------------|--------------------------------------------
+| Funcionamiento | Correcto
+| Respaldo      | Arduino sustituye al PIC sin pérdida
+| Seguridad     | Garantiza continuidad del laboratorio
+| Expansión     | Facilita mejoras futuras
