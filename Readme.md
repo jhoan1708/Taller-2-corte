@@ -402,42 +402,48 @@ while True:
     # ======================================================
     # conf = 0.20:
     #   Reduce el umbral de confianza para permitir detecciones
-    #   más sensibles, especialmente cuando los objetos se
-    #   muestran desde la pantalla de un celular.
+    #   más sensibles.
     #
     # iou = 0.3:
-    #   Permite detectar varios objetos aunque estén cercanos
-    #   o ligeramente superpuestos.
+    #   Permite detectar varios objetos cercanos sin eliminarlos.
     #
-    # augment = True:
-    #   Aplica aumentos durante la inferencia, analizando la
-    #   imagen en diferentes variaciones para mejorar resultados.
+    # augment = False:
+    #   Se desactiva porque en CPU ralentiza mucho la inferencia.
+    #
+    # device = "cpu":
+    #   Fuerza el uso exclusivo del procesador.
     #
     # stream = True:
-    #   Permite procesar los fotogramas de forma continua.
-    #
-    # verbose = False:
-    #   Evita mostrar mensajes innecesarios en consola.
+    #   Permite recibir múltiples resultados por frame.
 
     results = model(
         frame,
         stream=True,
         conf=0.20,
         iou=0.3,
-        augment=True,
+        augment=False,
+        device="cpu",
         verbose=False
     )
 
 
     # ======================================================
-    # 5. VISUALIZACIÓN DE RESULTADOS
+    # 5. VISUALIZACIÓN DE RESULTADOS (VARIOS OBJETOS)
     # ======================================================
-    # Recorremos los resultados obtenidos y dibujamos las
-    # cajas delimitadoras con su respectiva etiqueta y confianza.
+    # Se crea una copia del frame original para dibujar
+    # todas las detecciones en la misma imagen.
+
+    annotated_frame = frame.copy()
+
+    # Se recorren todos los resultados y se dibujan
+    # todas las cajas detectadas sobre el mismo frame.
 
     for r in results:
-        annotated_frame = r.plot()
-        cv2.imshow('Detector Universal - Pipe', annotated_frame)
+        annotated_frame = r.plot(img=annotated_frame)
+
+    # Se muestra el frame una sola vez, con todas las detecciones
+
+    cv2.imshow('Detector Universal - Pipe', annotated_frame)
 
 
     # ======================================================
@@ -457,6 +463,7 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
+
 
 ```
 
