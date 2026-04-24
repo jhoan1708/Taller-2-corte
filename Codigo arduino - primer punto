@@ -16,7 +16,7 @@ RC2         (Speaker)     →   D9
 RC1         (LED)         →   D13 (LED integrado)
 TRISx       (Config E/S)  →   pinMode()
 PWM manual  (Delays)      →   tone()
-``
+
 
 🎯 Funcionalidades conservadas
 
