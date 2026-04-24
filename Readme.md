@@ -431,6 +431,31 @@ while True:
     # 5. VISUALIZACIÓN DE RESULTADOS
     # ======================================================
     # Recorremos los resultados obtenidos y dibujamos las
+    # cajas delimitadoras con su respectiva etiqueta y confianza.
+
+    for r in results:
+        annotated_frame = r.plot()
+        cv2.imshow('Detector Universal - Pipe', annotated_frame)
+
+
+    # ======================================================
+    # 6. CONDICIÓN DE SALIDA
+    # ======================================================
+    # Al presionar la tecla 'q', se cierra el programa.
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+
+# ==========================================================
+# 7. LIBERACIÓN DE RECURSOS
+# ==========================================================
+# Se liberan la cámara y las ventanas para cerrar correctamente
+# la aplicación y evitar bloqueos del sistema.
+
+cap.release()
+cv2.destroyAllWindows()
+
 ```
 
 
