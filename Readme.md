@@ -157,6 +157,55 @@ https://github.com/user-attachments/assets/9e8b98cf-56ec-4555-a7a8-f1c1b37355e3
 </p> 
 
 
+
+``import cv2
+from ultralytics import YOLO
+ 
+# 1. CARGA DEL MODELO
+model = YOLO(r"C:\Users\PIPE\Desktop\best.pt")
+ 
+# 2. CONFIGURACIÓN DE LA CÁMARA
+cap = cv2.VideoCapture(0)
+ 
+# Forzamos una resolución estándar para que no haya "puntos ciegos"
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+ 
+if not cap.isOpened():
+    print("Error: No se pudo abrir la cámara.")
+    exit()
+ 
+print("Detección TOTAL activa. Apunta a tus juguetes o a la pantalla de tu celular.")
+ 
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+ 
+    # --- EL SECRETO PARA DETECTAR EN CUALQUIER POSICIÓN Y CELULARES ---
+    # conf=0.20: Bajamos mucho la confianza. Las fotos en celulares se ven distintas a los
+    # objetos reales, por eso necesitamos que la IA sea más "sensible".
+    # iou=0.3: Esto permite que detecte muchos objetos aunque estén pegados o amontonados.
+    # augment=True: Este comando hace que la IA analice la imagen varias veces (girada,
+    # con más luz, etc.) para encontrar objetos en cualquier posición.
+    results = model(frame, stream=True, conf=0.20, iou=0.3, augment=True, verbose=False)
+ 
+    for r in results:
+        # Dibujamos los cuadros
+        annotated_frame = r.plot()
+ 
+        # 4. MOSTRAR EN PANTALLA
+        cv2.imshow('Detector Universal - Pipe', annotated_frame)
+ 
+    # Presiona 'q' para cerrar
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+ 
+cap.release()
+cv2.destroyAllWindows()```
+
+
+
 <p align="center">
   <img src="Foto/Captura de pantalla 2026-04-21 170531.png" width="90%">
 </p> 
