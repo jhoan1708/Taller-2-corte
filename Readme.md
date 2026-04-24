@@ -158,7 +158,8 @@ https://github.com/user-attachments/assets/9e8b98cf-56ec-4555-a7a8-f1c1b37355e3
 
 
 
-``import cv2
+``
+import cv2
 from ultralytics import YOLO
  
 # 1. CARGA DEL MODELO
@@ -202,7 +203,8 @@ while True:
         break
  
 cap.release()
-cv2.destroyAllWindows() ```
+cv2.destroyAllWindows()
+``
 
 
 
