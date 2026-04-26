@@ -174,6 +174,10 @@ https://github.com/user-attachments/assets/9e8b98cf-56ec-4555-a7a8-f1c1b37355e3
 
 Una vez trenemos ya esto simulado funcinando pasamos a diseño a fisico en nuestra protoboard y nos quedara asi 
 
+<p align="center">
+ <img src="Foto/WhatsApp Image 2026-04-26 at 1.29.40 PM.jpeg">
+</p> 
+
 
 
 <p align="center">
