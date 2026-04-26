@@ -514,3 +514,6 @@ cv2.destroyAllWindows()
 </p> 
 
 # 3. Paisaje por medio de figuras de lissajaus
+<p align="center">
+  <img src="Foto/WhatsApp Image 2026-04-26 at 1.43.06 PM (1).jpeg" width="60%">
+</p> 
