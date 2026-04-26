@@ -32,7 +32,7 @@ Nota: todos los positivos voltaje deben de estar interconectados entre si y los 
 
 Una vez tenemos este circuito diseñado lo armamos en fisico conectamos el serial al pc validamos el puerto e iniciaños en arduino.ide y subimos el siguiente firware:
 
-´´´
+```bash
 #define PGC 13
 #define PGD 12
 #define MCLR 10
@@ -137,14 +137,13 @@ void procesarLinea(String linea) {
     Serial.println("OK");
   }
 }
-
-´´´
+```
 
 Una vez subimos copilamos el firware al arduino ejecutamos un codigo de prueba para comprobar que el relay funcione una vez hecho esto subimos los siguiente codigos en python y los ejecutamos.
   
 #Codigo ejecutablle en python leer 
 
-´´´
+```bash
 def leer_hex(ruta):
     datos = []
 
@@ -167,12 +166,11 @@ data = leer_hex("C:/Users/MONTAÑEZ/MPLABXProjects/Piano.X/dist/default/producti
 
 print("Bytes leídos:", len(data))
 print(data[:10])
-
-´´´
+```
 
 #Codigo 2 ejecutable python leer
 
-´´´
+```bash
 def leer_hex(ruta):
 datos = []
 
@@ -188,11 +186,10 @@ for i in range(longitud):
 byte = int(linea[9+i*2:11+i*2], 16)
 datos.append((direccion+i, byte))
 return datos
-    
-´´´
+```
 
 
-´´´
+```bash
 #Ejecutable python
 import serial
 import time
@@ -246,20 +243,20 @@ for palabra in palabras:
 ser.write(b'X\n')
 
 print("FIN")
-´´´
+```
 
 
 Una vez ejecutados en la powershell de nuestro equipo ejecutamos la siguiente linea 
 
 
-´´´
+```bash
 #Ejecutable en power shel
 PS C:\Users\MONTAÑEZ> python "C:\Users\MONTAÑEZ\MPLABXProjects\Piano.X\dist\default\production\programar.py"
-´´´
+```
 
 una vez recibamos la siguiente respuesta ya nuestro pic quedo programado pero se debe de tener en cuenta que puede fallar ya que es casero y experimental.
 
-´´´
+```bash
 PS C:\Users\MONTAÑEZ> python "C:\Users\MONTAÑEZ\MPLABXProjects\Piano.X\dist\default\production\programar.py"
 Palabras: 343
 Programando...
@@ -607,4 +604,4 @@ Arduino: OK
 Arduino: OK
 FIN
 PS C:\Users\MONTAÑEZ>
-´´´
+```
