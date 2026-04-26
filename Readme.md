@@ -515,11 +515,11 @@ cv2.destroyAllWindows()
 
 # 3. Paisaje por medio de figuras de lissajaus
 <p align="center">
-  <img src="Foto/WhatsApp Image 2026-04-26 at 1.43.06 PM (1).jpeg" width="70%">
+  <img src="Foto/WhatsApp Image 2026-04-26 at 1.43.06 PM (1).jpeg" width="90%">
 </p> 
 
 <p align="center">
-  <img src="Foto/WhatsApp Image 2026-04-26 at 1.43.06 PM.jpeg" width="80%">
+  <img src="Foto/WhatsApp Image 2026-04-26 at 1.43.06 PM.jpeg" width="90%">
 </p> 
 
 https://github.com/user-attachments/assets/aad3e3e4-09fd-43ca-bfc0-7d9ce18c255c
