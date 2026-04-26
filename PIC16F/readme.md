@@ -27,13 +27,10 @@ creamos el siguiente diseño:
 * pines 39 y 40 de pic a pines d12 y d13 arduino para datos
 * Mclr pic con resistencia a 5 v
   
-´´´
 Nota: todos los positivos voltaje deben de estar interconectados entre si y los mismo los gnd o negativos y mclr debe de ir con la resistencia de 10 k o cercana 
-´´´
 
 
 Una vez tenemos este circuito diseñado lo armamos en fisico conectamos el serial al pc validamos el puerto e iniciaños en arduino.ide y subimos el siguiente firware:
-
 
 ´´´
 #define PGC 13
@@ -140,13 +137,14 @@ void procesarLinea(String linea) {
     Serial.println("OK");
   }
 }
-´´´
 
+´´´
 
 Una vez subimos copilamos el firware al arduino ejecutamos un codigo de prueba para comprobar que el relay funcione una vez hecho esto subimos los siguiente codigos en python y los ejecutamos.
   
-Bash´´´
 #Codigo ejecutablle en python leer 
+
+´´´
 def leer_hex(ruta):
     datos = []
 
@@ -169,26 +167,28 @@ data = leer_hex("C:/Users/MONTAÑEZ/MPLABXProjects/Piano.X/dist/default/producti
 
 print("Bytes leídos:", len(data))
 print(data[:10])
-´´´
 
 ´´´
+
 #Codigo 2 ejecutable python leer
+
+´´´
 def leer_hex(ruta):
-    datos = []
+datos = []
 
-    with open(ruta, 'r') as f:
-        for linea in f:
-            if linea.startswith(':'):
-                longitud = int(linea[1:3], 16)
-                direccion = int(linea[3:7], 16)
-                tipo = int(linea[7:9], 16)
+ith open(ruta, 'r') as f
+for linea in f:
+if linea.startswith(':'):
+longitud = int(linea[1:3], 16)
+direccion = int(linea[3:7], 16)
+tipo = int(linea[7:9], 16)
 
-                if tipo == 0:
-                    for i in range(longitud):
-                        byte = int(linea[9+i*2:11+i*2], 16)
-                        datos.append((direccion+i, byte))
-
-    return datos
+if tipo == 0:
+for i in range(longitud):
+byte = int(linea[9+i*2:11+i*2], 16)
+datos.append((direccion+i, byte))
+return datos
+    
 ´´´
 
 
@@ -198,19 +198,18 @@ import serial
 import time
 
 def leer_hex(ruta):
-    datos = []
-    with open(ruta, 'r') as f:
-        for linea in f:
-            if linea.startswith(':'):
-                longitud = int(linea[1:3], 16)
-                direccion = int(linea[3:7], 16)
-                tipo = int(linea[7:9], 16)
+datos = []
+with open(ruta, 'r') as f:
+for linea in f:if linea.startswith(':'):
+longitud = int(linea[1:3], 16)
+direccion = int(linea[3:7], 16)
+tipo = int(linea[7:9], 16)
 
-                if tipo == 0:
-                    for i in range(longitud):
-                        byte = int(linea[9+i*2:11+i*2], 16)
-                        datos.append((direccion+i, byte))
-    return datos
+if tipo == 0:
+for i in range(longitud):
+byte = int(linea[9+i*2:11+i*2], 16)
+datos.append((direccion+i, byte))
+return datos
 
 
 PUERTO = 'COM8'
