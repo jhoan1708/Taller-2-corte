@@ -11,7 +11,29 @@
 
 # 1. Instrumento musical electrónico
 
+Este proyecto consiste en un sistema de control embebido multifuncional basado en el microcontrolador PIC16F877A. Es el prototipo ideal para laboratorios de ingeniería, ya que integra la gestión de señales analógicas y digitales para interactuar con diversos periféricos en un solo entorno.
+
+El diseño utiliza una arquitectura clásica para demostrar el procesamiento de datos y la activación de actuadores:
+
+* Cerebro del Sistema: Un microcontrolador PIC16F877A
+* Interfaz de Entrada: 8 Pulsadores (PORTB)
+* Interfaz de Salida: Display de 7 Segmentos (PORTD) y buzzer
+
 # Desarrollo
+
+Buscamos un diseño para guiarnos y decidimos para mejorarlo un poco poner siet interruptores cada uno me representa una nota musical en forma de pull-up de ahy nos activa dos salidas una que sera la bocina para la reproduccion de cada frecuencia y la otra salida estara en la pantalla 7 segmentos que nos dara un numero del 1 al 7 representando una nota musical para saber asi que frecuencia o nota se esta oprimiendo o sonando, creamos un codigo para mplab donde definiremos estas funciones.
+
+* mclr y A0 a corriente 5v 
+* Vdd a corriente 5v
+* vcc a gnd
+* C0, Y 3 a display 7 segmentos
+* C1 a led
+* C2 a bocina
+* D0 a D7 a pantalla 7 segementos en el orden alfabetico
+* B0 a B6 a las botoneras o interruptores
+* interruptores bocina y led van a tierra por su otro extremo
+
+Una vez definidas esta funciones, generamos un scrit para cual lo subimos a mplab para genar el .hex para poder prgramar con el pickit 3.
 
 ```bash
 #include <xc.h>
@@ -149,6 +171,8 @@ void main(void) {
 
 https://github.com/user-attachments/assets/9e8b98cf-56ec-4555-a7a8-f1c1b37355e3
 
+
+Una vez trenemos ya esto simulado funcinando pasamos a diseño a fisico en nuestra protoboard y nos quedara asi 
 
 
 
